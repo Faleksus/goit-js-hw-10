@@ -2,20 +2,20 @@
   "name": "goit-js-hw-10",
   "version": "2.0.0",
   "description": "This project was created with Parcel. For familiarization and setting additional features [refer to documentation](https://parceljs.org/).",
-  "homepage": "https://goitacademy.github.io/goit-js-hw-10",
+  "homepage": "https://github.com/Faleksus/goit-js-hw-10",
   "scripts": {
     "start": "parcel src/*.html",
     "build": "parcel build src/*.html --public-url /goit-js-hw-10/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goitacademy/goit-js-hw-10.git"
+    "url": "git+https://github.com/Fleksus/goit-js-hw-10.git"
   },
   "keywords": [],
   "author": "Alexander Repeta <alexander.repeta@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/goitacademy/goit-js-hw-10/issues"
+    "url": "https://github.com/Faleksus/goit-js-hw-10/issues"
   },
   "dependencies": {
     "handlebars": "^4.7.7",
