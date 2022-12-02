@@ -10,7 +10,7 @@ const refs = {
     inputEl: document.querySelector('#search-box'),
     listCountryEl: document.querySelector('.country-list'),
     infoCountryEl: document.querySelector('.country-info'),
-}
+};
 
 refs.inputEl.addEventListener('input', debounce(onCountryInput, DEBOUNCE_DELAY));
 
@@ -20,7 +20,7 @@ function onCountryInput() {
   const name = refs.inputEl.value.trim();
   if (name === '') {
     return (refs.listCountryEl.innerHTML = ''), (refs.inputEl.innerHTML = '');
-  }
+  };
 
   fetchCountries(name)
     .then(country => {
@@ -36,15 +36,15 @@ function onCountryInput() {
       }
     })
     .catch(returnLessCountries);
-}
+};
 
 function returnMoreCountries() {
   Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-}
+};
 
 function returnLessCountries() {
   Notiflix.Notify.failure('Oops, there is no country with that name');
-}
+};
 
 
 function markupCountryList(country) {
@@ -58,7 +58,7 @@ function markupCountryList(country) {
           `;
     })
     .join('');
-}
+};
 
 function markupCountryInfo(country) {
   return country
@@ -71,9 +71,9 @@ function markupCountryInfo(country) {
             </li>
             <li class="country-info__item"><span class="country-info__item--descr">Capital: </span>${capital}</li>
             <li class="country-info__item"><span class="country-info__item--descr">Population: </span>${population}</li>
-            <li class="country-info__item"><span class="country-info__item--descr">Languages: </span>${Object.values(languages).join(', ')}</li>
+            <li class="country-info__item"><span class="country-info__item--descr">Languages: </span>${Object.values(languages, ).join(', ')}</li>
         </ul>
         `;
     })
     .join('');
-}
+};
