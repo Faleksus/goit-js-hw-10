@@ -17,12 +17,12 @@ refs.inputEl.addEventListener('input', debounce(onCountryInput, DEBOUNCE_DELAY))
 
 function onCountryInput() {
 
-  // const name = refs.inputEl.value.trim();
-  // if (name === '') {
-  //   return (refs.listCountryEl.innerHTML = ''), (refs.inputEl.innerHTML = '');
-  // };
+  const name = refs.inputEl.value.trim();
+  if (name === '') {
+    return (refs.listCountryEl.innerHTML = ''), (refs.inputEl.innerHTML = '');
+  }
 
-  fetchCountries()
+  fetchCountries(name)
     .then(country => {
         refs.listCountryEl.innerHTML = '';
         refs.infoCountryEl.innerHTML = '';
@@ -36,34 +36,31 @@ function onCountryInput() {
       }
     })
     .catch(returnLessCountries);
-};
+}
 
 function returnMoreCountries() {
   Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-};
+}
 
 function returnLessCountries() {
   Notiflix.Notify.failure('Oops, there is no country with that name');
-};
+}
 
 
 function markupCountryList(country) {
   return country
-    .map(({ name, flags }) => {
-      return markup = `
+    .map(({ name, flags }) => `
           <li class="country-list__item">
               <img class="country-list__item--flag" src="${flags.svg}" alt="${name.official}">
               <h2 class="country-list__item--name">${name.official}</h2>
           </li>
-          `;
-    })
+          `)
     .join('');
-};
+}
 
 function markupCountryInfo(country) {
   return country
-    .map(({ name, flags, capital, population, languages }) => {
-      return markup = `
+    .map(({ name, flags, capital, population, languages }) => `
         <ul class="country-info__list">
             <li class="country-info__item">
               <img class="country-info__item--flag" src="${flags.svg}" alt="${name.official}">
@@ -73,7 +70,6 @@ function markupCountryInfo(country) {
             <li class="country-info__item"><span class="country-info__item--descr">Population: </span>${population}</li>
             <li class="country-info__item"><span class="country-info__item--descr">Languages: </span>${Object.values(languages, ).join(', ')}</li>
         </ul>
-        `;
-    })
+        `)
     .join('');
-};
+}
