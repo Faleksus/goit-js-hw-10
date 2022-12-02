@@ -17,12 +17,12 @@ refs.inputEl.addEventListener('input', debounce(onCountryInput, DEBOUNCE_DELAY))
 
 function onCountryInput() {
 
-  const name = refs.inputEl.value.trim();
-  if (name === '') {
-    return (refs.listCountryEl.innerHTML = ''), (refs.inputEl.innerHTML = '');
-  };
+  // const name = refs.inputEl.value.trim();
+  // if (name === '') {
+  //   return (refs.listCountryEl.innerHTML = ''), (refs.inputEl.innerHTML = '');
+  // };
 
-  fetchCountries(name)
+  fetchCountries()
     .then(country => {
         refs.listCountryEl.innerHTML = '';
         refs.infoCountryEl.innerHTML = '';
