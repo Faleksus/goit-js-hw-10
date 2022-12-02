@@ -547,9 +547,11 @@ const refs = {
 };
 refs.inputEl.addEventListener("input", (0, _lodashDebounceDefault.default)(onCountryInput, DEBOUNCE_DELAY));
 function onCountryInput() {
-    const name = refs.inputEl.value.trim();
-    if (name === "") return refs.listCountryEl.innerHTML = "", refs.inputEl.innerHTML = "";
-    (0, _fetchCountries.fetchCountries)(name).then((country)=>{
+    // const name = refs.inputEl.value.trim();
+    // if (name === '') {
+    //   return (refs.listCountryEl.innerHTML = ''), (refs.inputEl.innerHTML = '');
+    // };
+    (0, _fetchCountries.fetchCountries)().then((country)=>{
         refs.listCountryEl.innerHTML = "";
         refs.infoCountryEl.innerHTML = "";
         if (country.length === 1) refs.infoCountryEl.insertAdjacentHTML("beforeend", markupCountryInfo(country));
@@ -1667,15 +1669,22 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "fetchCountries", ()=>fetchCountries);
-const LINK_COUNTRIES = "https://restcountries.com/v3.1/name/";
-async function fetchCountries(name) {
-    try {
-        const response = await fetch(`${LINK_COUNTRIES}${name}?fields=name,capital,population,flags,languages`);
-        return await response.json();
-    } catch (error) {
-        return console.log(error);
-    }
-}
+const LINK_COUNTRIES = "https://restcountries.com/v3.1/name";
+// export function fetchCountries(name) {
+//     return fetch(`${LINK_COUNTRIES}${name}?fields=name,capital,population,flags,languages`)
+//       .then(response => {
+//         return response.json();
+//       })
+//       .catch(error => {
+//         console.log(error);
+//     });
+//   };
+const fetchCountries = (name)=>{
+    return fetch(`${LINK_COUNTRIES}/${name}?fields=name,capital,population,flags,languages`).then((response)=>{
+        if (response.status === 404) return Promise.reject(new Error());
+        return response.json();
+    });
+};
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["ShInH","8lqZg"], "8lqZg", "parcelRequireabb0")
 
