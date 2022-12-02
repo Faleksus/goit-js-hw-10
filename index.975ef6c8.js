@@ -547,11 +547,9 @@ const refs = {
 };
 refs.inputEl.addEventListener("input", (0, _lodashDebounceDefault.default)(onCountryInput, DEBOUNCE_DELAY));
 function onCountryInput() {
-    // const name = refs.inputEl.value.trim();
-    // if (name === '') {
-    //   return (refs.listCountryEl.innerHTML = ''), (refs.inputEl.innerHTML = '');
-    // };
-    (0, _fetchCountries.fetchCountries)().then((country)=>{
+    const name = refs.inputEl.value.trim();
+    if (name === "") return refs.listCountryEl.innerHTML = "", refs.inputEl.innerHTML = "";
+    (0, _fetchCountries.fetchCountries)(name).then((country)=>{
         refs.listCountryEl.innerHTML = "";
         refs.infoCountryEl.innerHTML = "";
         if (country.length === 1) refs.infoCountryEl.insertAdjacentHTML("beforeend", markupCountryInfo(country));
@@ -566,18 +564,15 @@ function returnLessCountries() {
     (0, _notiflixDefault.default).Notify.failure("Oops, there is no country with that name");
 }
 function markupCountryList(country) {
-    return country.map(({ name , flags  })=>{
-        return markup = `
+    return country.map(({ name , flags  })=>`
           <li class="country-list__item">
               <img class="country-list__item--flag" src="${flags.svg}" alt="${name.official}">
               <h2 class="country-list__item--name">${name.official}</h2>
           </li>
-          `;
-    }).join("");
+          `).join("");
 }
 function markupCountryInfo(country) {
-    return country.map(({ name , flags , capital , population , languages  })=>{
-        return markup = `
+    return country.map(({ name , flags , capital , population , languages  })=>`
         <ul class="country-info__list">
             <li class="country-info__item">
               <img class="country-info__item--flag" src="${flags.svg}" alt="${name.official}">
@@ -587,11 +582,10 @@ function markupCountryInfo(country) {
             <li class="country-info__item"><span class="country-info__item--descr">Population: </span>${population}</li>
             <li class="country-info__item"><span class="country-info__item--descr">Languages: </span>${Object.values(languages).join(", ")}</li>
         </ul>
-        `;
-    }).join("");
+        `).join("");
 }
 
-},{"./css/styles.css":"1CY4s","lodash.debounce":"3JP5n","notiflix":"5WWYd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./fetchCountries":"fTQqv"}],"1CY4s":[function() {},{}],"3JP5n":[function(require,module,exports) {
+},{"./css/styles.css":"1CY4s","lodash.debounce":"3JP5n","notiflix":"5WWYd","./fetchCountries":"fTQqv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1CY4s":[function() {},{}],"3JP5n":[function(require,module,exports) {
 /**
  * lodash (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize exports="npm" -o ./`
@@ -1635,7 +1629,28 @@ var global = arguments[3];
     };
 });
 
-},{}],"gkKU3":[function(require,module,exports) {
+},{}],"fTQqv":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "fetchCountries", ()=>fetchCountries);
+const LINK_COUNTRIES = "https://restcountries.com/v3.1/name";
+// export function fetchCountries(name) {
+//     return fetch(`${LINK_COUNTRIES}${name}?fields=name,capital,population,flags,languages`)
+//       .then(response => {
+//         return response.json();
+//       })
+//       .catch(error => {
+//         console.log(error);
+//     });
+//   };
+const fetchCountries = (name)=>{
+    return fetch(`${LINK_COUNTRIES}/${name}?fields=name,capital,population,flags,languages`).then((response)=>{
+        if (response.status === 404) return Promise.reject(new Error());
+        return response.json();
+    });
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -1665,27 +1680,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"fTQqv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "fetchCountries", ()=>fetchCountries);
-const LINK_COUNTRIES = "https://restcountries.com/v3.1/name";
-// export function fetchCountries(name) {
-//     return fetch(`${LINK_COUNTRIES}${name}?fields=name,capital,population,flags,languages`)
-//       .then(response => {
-//         return response.json();
-//       })
-//       .catch(error => {
-//         console.log(error);
-//     });
-//   };
-const fetchCountries = (name)=>{
-    return fetch(`${LINK_COUNTRIES}/${name}?fields=name,capital,population,flags,languages`).then((response)=>{
-        if (response.status === 404) return Promise.reject(new Error());
-        return response.json();
-    });
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["ShInH","8lqZg"], "8lqZg", "parcelRequireabb0")
+},{}]},["ShInH","8lqZg"], "8lqZg", "parcelRequireabb0")
 
 //# sourceMappingURL=index.975ef6c8.js.map
